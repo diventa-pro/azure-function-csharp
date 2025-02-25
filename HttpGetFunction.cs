@@ -17,8 +17,9 @@ namespace Company.Function
         [Function("httpget")]
         public IActionResult Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get")]
-            HttpRequest req,
-          string name)
+            HttpRequest req, 
+            string name
+            )
         {
             var returnValue = string.IsNullOrEmpty(name)
                 ? "Hello, My World."

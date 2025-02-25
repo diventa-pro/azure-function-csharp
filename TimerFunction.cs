@@ -15,8 +15,10 @@ public class TimerFunction
     //<docsnippet_fixed_delay_retry_example>
     [Function(nameof(TimerFunction))]
     [FixedDelayRetry(5, "00:00:10")]
-    public void TimerFunctionHandler([TimerTrigger("0 */1 * * * *")] TimerInfo timerInfo,
-        FunctionContext context)
+    public void TimerFunctionHandler(
+        [TimerTrigger("0 */1 * * * *")] TimerInfo timerInfo,
+        FunctionContext context
+        )
     {
         _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
     }
