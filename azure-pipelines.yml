@@ -5,14 +5,9 @@
 
 trigger:
 - main
+- develop
 
 variables:
-  # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: '25f8f4eb-8457-4269-bf4b-01662f502053'
-
-  # Function app name
-  functionAppName: 'http20250225144957'
-
   # Agent VM image name
   vmImageName: 'windows-latest'
 
@@ -47,27 +42,3 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
 
-- stage: Deploy
-  displayName: Deploy stage
-  dependsOn: Build
-  condition: succeeded()
-
-  jobs:
-  - deployment: Deploy
-    displayName: Deploy
-    environment: 'development'
-    pool:
-      vmImage: $(vmImageName)
-
-    strategy:
-      runOnce:
-        deploy:
-
-          steps:
-          - task: AzureFunctionApp@2
-            displayName: 'Azure functions app deploy'
-            inputs:
-              connectedServiceNameARM: '$(azureSubscription)'
-              appType: functionApp
-              appName: $(functionAppName)
-              package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
