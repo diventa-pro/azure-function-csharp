@@ -5,13 +5,13 @@ using Microsoft.Extensions.Logging;
 
 namespace Company.Function
 {
-    public class httpGetFunction
+    public class HttpGetFunction
     {
         private readonly ILogger _logger;
 
-        public httpGetFunction(ILoggerFactory loggerFactory)
+        public HttpGetFunction(ILoggerFactory loggerFactory)
         {
-            _logger = loggerFactory.CreateLogger<httpGetFunction>();
+            _logger = loggerFactory.CreateLogger<HttpGetFunction>();
         }
 
         [Function("httpget")]

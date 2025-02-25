@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Company.Function.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
@@ -18,7 +19,8 @@ namespace Company.Function
 
         [Function("httppost")]
         public IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "post")]
+            HttpRequest req,
             [FromBody] Person person)
         {
             _logger.LogInformation($"C# HTTP POST trigger function processed a request for url {req.Body}");
@@ -30,10 +32,10 @@ namespace Company.Function
             }
 
             var returnValue = $"Hello, {person.Name}! You are {person.Age} years old.";
-            
-            _logger.LogInformation($"C# HTTP POST trigger function processed a request for {person.Name} who is {person.Age} years old.");
+
+            _logger.LogInformation(
+                $"C# HTTP POST trigger function processed a request for {person.Name} who is {person.Age} years old.");
             return new OkObjectResult(returnValue);
         }
     }
-    public record Person([property: JsonPropertyName("name")] string Name, [property: JsonPropertyName("age")] int Age);
 }
